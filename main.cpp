@@ -1,27 +1,35 @@
 #include <iostream>
+#include <cmath>
 
 #include "Vec3D.hpp"
 #include "Color.hpp"
 #include "Ray.hpp"
 
-bool hit_sphere(const point3D& center, const double radius, const Ray& ray) {
+double hit_sphere(const point3D& center, const double radius, const Ray& ray) {
    auto a = dot(ray.direction(), ray.direction());
    auto b = dot(2 * ray.direction(), ray.origin() - center);
    auto c = dot(ray.origin() - center, ray.origin() - center) - radius * radius;
 
    auto discriminent = b * b - 4 * a * c;
-   return discriminent >= 0; 
+   if(discriminent >= 0) {
+      auto t = (-b - std::sqrt(discriminent)) / (2.0 * a);
+      return t;
+   }
+   return -1;
 }
 
 // gives the color of a ray based on its y coordinate value
 // gradient varies from white for y = 0 to cyan (24, 163, 126)
 color ray_color(const Ray& ray) {
-   if(hit_sphere(point3D(0, 0, -1), 0.5, ray)) {
-      return Color::purple;
+   auto t = hit_sphere(point3D(0, 0, -1), 0.5, ray);
+   if(t != -1) {
+      auto hit_point = ray.at(t);
+      auto normal_unit_vector = unit_vector(Vec3D(hit_point - point3D(0, 0, -1)));
+      return 0.5 * color(normal_unit_vector.x() + 1, normal_unit_vector.y() + 1, normal_unit_vector.z() + 1);
    }
    
    auto unit_direction = unit_vector(ray.direction());
-   auto t = 0.5 * (unit_direction.y() + 1.0);            // since y can be between [-1, 1], scaling it to be btw [0, 1]
+   t = 0.5 * (unit_direction.y() + 1.0);            // since y can be between [-1, 1], scaling it to be btw [0, 1]
       
    // linear interpolation : coloval = (1 - y) * initial_value + y * final_value
    return (1 - t) * Color::white + t * Color::cyan;

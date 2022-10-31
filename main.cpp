@@ -11,7 +11,7 @@ color ray_color(const Ray& ray) {
    auto t = 0.5 * (unit_direction.y() + 1.0);            // since y can be between [-1, 1], scaling it to be btw [0, 1]
       
    // linear interpolation : coloval = (1 - y) * initial_value + y * final_value
-   return (1 - t) * color(1.0, 1.0, 1.0) + t * color(24 / 255.999, 163 / 255.999, 126 / 255.999);
+   return (1 - t) * Color::white + t * Color::cyan;
 }
 
 int main() {

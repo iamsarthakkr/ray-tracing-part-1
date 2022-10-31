@@ -6,4 +6,7 @@
 
 namespace Color {
    void write_color(std::ostream& out, const color& pixel_color);
+
+   const color white(1.0, 1.0, 1.0);
+   const color cyan(24 / 255.999, 163 / 255.999, 126 / 255.999);
 }

@@ -4,9 +4,22 @@
 #include "Color.hpp"
 #include "Ray.hpp"
 
+bool hit_sphere(const point3D& center, const double radius, const Ray& ray) {
+   auto a = dot(ray.direction(), ray.direction());
+   auto b = dot(2 * ray.direction(), ray.origin() - center);
+   auto c = dot(ray.origin() - center, ray.origin() - center) - radius * radius;
+
+   auto discriminent = b * b - 4 * a * c;
+   return discriminent >= 0; 
+}
+
 // gives the color of a ray based on its y coordinate value
 // gradient varies from white for y = 0 to cyan (24, 163, 126)
 color ray_color(const Ray& ray) {
+   if(hit_sphere(point3D(0, 0, -1), 0.5, ray)) {
+      return Color::purple;
+   }
+   
    auto unit_direction = unit_vector(ray.direction());
    auto t = 0.5 * (unit_direction.y() + 1.0);            // since y can be between [-1, 1], scaling it to be btw [0, 1]
       
@@ -18,7 +31,7 @@ int main() {
    // Image dimensions
 
    const auto aspect_ratio = 16.0 / 9.0;
-   const int image_width = 480;
+   const int image_width = 2180;
    const int image_height = static_cast<int>(image_width / aspect_ratio);
 
    // Setting up camera position

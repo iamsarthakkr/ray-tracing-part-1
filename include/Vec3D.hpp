@@ -26,5 +26,18 @@ private:
    double m_data[3];
 };
 
+// Utility functions
+
+inline std::ostream& operator<<(std::ostream& out, const Vec3D& v);
+inline Vec3D operator+(const Vec3D& a, const Vec3D& b);
+inline Vec3D operator-(const Vec3D& a, const Vec3D& b);
+inline Vec3D operator*(const Vec3D& a, const Vec3D& b);
+inline Vec3D operator*(double t, const Vec3D& a);
+inline Vec3D operator*(const Vec3D& a, double t);
+inline Vec3D operator/(const Vec3D& a, double t);
+inline double dot(const Vec3D&a, const Vec3D& b);
+inline Vec3D cross(const Vec3D& a, const Vec3D& b);
+inline Vec3D unit_vector(const Vec3D& v);
+
 using point3D = Vec3D;  // 3D point
 using color = Vec3D;    // RGB color

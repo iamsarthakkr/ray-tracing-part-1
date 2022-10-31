@@ -13,8 +13,8 @@ int main() {
    std::cout << "255\n";
 
    for(int i = image_height - 1; i >= 0; --i) {
+      std::cerr << "\rScanlines remaining: " << i << ' ' << std::flush;
       for(int j = 0; j < image_width; j++) {
-         std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
          double r = (double) i / (image_height - 1);
          double g = (double) j / (image_width - 1);
          double b = 0.15;

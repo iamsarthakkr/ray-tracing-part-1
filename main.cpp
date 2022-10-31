@@ -1,5 +1,8 @@
 #include <iostream>
 
+#include "Vec3D.hpp"
+#include "Color.hpp"
+
 int main() {
    // Image dimensions
 
@@ -19,11 +22,7 @@ int main() {
          double g = (double) j / (image_width - 1);
          double b = 0.15;
 
-         int r_val = static_cast<int>(r * 255.999);
-         int g_val = static_cast<int>(g * 255.999);
-         int b_val = static_cast<int>(b * 255.999);
-
-         std::cout << r_val << " " << g_val << " " << b_val << '\n';
+         Color::write_color(std::cout, color(r, g, b));
       }
    }
    std::cerr << "\nDone.\n";

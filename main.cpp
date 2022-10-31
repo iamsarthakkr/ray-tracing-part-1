@@ -24,6 +24,7 @@ color ray_color(const Ray& ray) {
    auto t = hit_sphere(point3D(0, 0, -1), 0.5, ray);
    if(t != -1) {
       auto hit_point = ray.at(t);
+      // Normal vector is the vector perpendicular to the surface of the sphere at the hit point of ray
       auto normal_unit_vector = unit_vector(Vec3D(hit_point - point3D(0, 0, -1)));
       return 0.5 * color(normal_unit_vector.x() + 1, normal_unit_vector.y() + 1, normal_unit_vector.z() + 1);
    }

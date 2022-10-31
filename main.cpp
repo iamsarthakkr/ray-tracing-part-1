@@ -6,13 +6,15 @@
 #include "Ray.hpp"
 
 double hit_sphere(const point3D& center, const double radius, const Ray& ray) {
-   auto a = dot(ray.direction(), ray.direction());
-   auto b = dot(2 * ray.direction(), ray.origin() - center);
-   auto c = dot(ray.origin() - center, ray.origin() - center) - radius * radius;
+   Vec3D OC = ray.origin() - center;
 
-   auto discriminent = b * b - 4 * a * c;
-   if(discriminent >= 0) {
-      auto t = (-b - std::sqrt(discriminent)) / (2.0 * a);
+   auto a = dot(ray.direction(), ray.direction());
+   auto half_b = dot(ray.direction(), OC);
+   auto c = dot(OC, OC) - radius * radius;
+
+   auto modified_discriminent = half_b * half_b - a * c;
+   if(modified_discriminent >= 0) {
+      auto t = (-half_b - std::sqrt(modified_discriminent)) / a;
       return t;
    }
    return -1;

@@ -7,8 +7,8 @@ public:
    Ray() {}
    Ray(const point3D& origin, const Vec3D& direction) : m_origin(origin), m_direction(direction) {}
 
-   point3D origin();
-   Vec3D direction();
+   point3D origin() const;
+   Vec3D direction() const;
 
    point3D at(double t) const;
    

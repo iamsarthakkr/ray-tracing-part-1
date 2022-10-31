@@ -25,3 +25,6 @@ public:
 private:
    double m_data[3];
 };
+
+using point3D = Vec3D;  // 3D point
+using color = Vec3D;    // RGB color

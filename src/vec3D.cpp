@@ -78,6 +78,3 @@ inline Vec3D cross(const Vec3D& a, const Vec3D& b) {
 inline Vec3D unit_vector(const Vec3D& v) {
    return v / v.length();
 }
-
-using point3D = Vec3D;  // 3D point
-using color = Vec3D;    // RGB color

@@ -13,7 +13,7 @@ color ray_color(const Ray& ray, const Hittable_list& world) {
    Hit_record rec;
    if(world.hit(ray, 0, infinity, rec)) {
       // color based on the normal vector
-      return 0.5 * color(0.15 / 0.5, 0.15 / 0.5, rec.normal.z() + 1);
+      return 0.5 * (rec.normal + color(1, 1, 1));
    }
    
    // color for background

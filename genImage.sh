@@ -8,6 +8,6 @@ ROOT_DIR=$(pwd)
 cd $ROOT_DIR/out/build
 
 ./out > ./image.ppm
-open -a ToyViewer ./image.ppm
+open ./image.ppm
 
 cd $ROOT_DIR

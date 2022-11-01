@@ -4,6 +4,8 @@
 #include "Color.hpp"
 #include "Hittable_list.hpp"
 #include "Sphere.hpp"
+#include "Material.hpp"
+#include "Diffused_Material.hpp"
 
 #include <iostream>
 
@@ -13,14 +15,18 @@
 color ray_color(const Ray& ray, const Hittable_list& world, int depth) {
    if(depth < 0) {
       // No more light gathered
-      return color(0, 0, 0);
+      return Color::black;
    }
 
    Hit_record rec;
    if(world.hit(ray, 0.001, infinity, rec)) {
       // color based on the normal vector
-      auto target = rec.point + rec.normal + random_in_hemisphere(rec.normal);
-      return 0.5 * ray_color(Ray(rec.point, target - rec.point), world, depth - 1);
+      Ray scattered;
+      color attenuation;
+      if(rec.material_ptr->scatter(ray, rec, attenuation, scattered)) {
+         return attenuation * ray_color(scattered, world, depth - 1);
+      }
+      return Color::black;
    }
    
    // color for background
@@ -41,8 +47,11 @@ int main() {
 
    // World
    Hittable_list world;
-   world.add(make_shared<Sphere>(point3D(0, 0, -1), 0.5));
-   world.add(make_shared<Sphere>(point3D(0, -100.5, -1), 100));
+   const shared_ptr<Material> mat1 = make_shared<Diffused_Material>(color(0.5, 0.5, 0.5));
+   const shared_ptr<Material> mat2 = make_shared<Diffused_Material>(color(1, 1, 1));
+
+   world.add(make_shared<Sphere>(point3D(0, 0, -1), 0.5, mat1));
+   world.add(make_shared<Sphere>(point3D(0, -100.5, -1), 100, mat2));
 
    // Setting up camera
    Camera cam;

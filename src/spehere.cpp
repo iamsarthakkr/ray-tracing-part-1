@@ -32,6 +32,7 @@ bool Sphere::hit(const Ray& ray, double t_min, double t_max, Hit_record& rec) co
    rec.t = root;
    auto outward_normal = (rec.point - center) / radius;
    rec.set_face_normal(ray, outward_normal);
+   rec.material_ptr = material_ptr;
       
    return true;
 }

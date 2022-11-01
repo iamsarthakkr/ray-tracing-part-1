@@ -1,7 +1,9 @@
 #pragma once
 #define HITTABLE_H
 
-#include "Ray.hpp"
+#include "Ray_Tracing.hpp"
+
+class Material;
 
 // Struct to hold the info about the strike point of a ray with a hittable object
 struct Hit_record {
@@ -9,6 +11,7 @@ struct Hit_record {
    Vec3D normal;
    double t;
    bool front_face;
+   shared_ptr<Material> material_ptr;
 
    inline void set_face_normal(const Ray& ray, const Vec3D& outward_normal) {
       if(dot(ray.direction(), outward_normal) < 0) {

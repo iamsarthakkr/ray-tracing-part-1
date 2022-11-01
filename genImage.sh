@@ -7,7 +7,16 @@ ROOT_DIR=$(pwd)
 
 cd $ROOT_DIR/out/build
 
-./out > ./image.ppm
-open ./image.ppm
+
+filename=$1
+
+if [ -z "$filename" ]
+then
+   filename="image"
+fi
+
+echo $filename
+./out > ../res/$filename.ppm
+open ../res/$filename.ppm
 
 cd $ROOT_DIR

@@ -6,6 +6,7 @@
 struct Hit_Record;
 
 class Material {
-public:
-   virtual void scatter(const Ray& ray_in, const Hit_Record& rec, color& attenuation, Ray& scatter) const = 0;
+public:   
+   // method to check whether material scatters the incomming ray and also calculate by how much
+   virtual bool scatter(const Ray& ray_in, const Hit_Record& rec, color& attenuation, Ray& scatter) const = 0;
 };

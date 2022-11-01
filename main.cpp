@@ -1,38 +1,24 @@
-#include <iostream>
-#include <cmath>
+#include "Ray_tracing.hpp"
 
-#include "Vec3D.hpp"
 #include "Color.hpp"
-#include "Ray.hpp"
+#include "Hittable_list.hpp"
+#include "Sphere.hpp"
 
-double hit_sphere(const point3D& center, const double radius, const Ray& ray) {
-   Vec3D OC = ray.origin() - center;
+#include <iostream>
 
-   auto a = dot(ray.direction(), ray.direction());
-   auto half_b = dot(ray.direction(), OC);
-   auto c = dot(OC, OC) - radius * radius;
-
-   auto modified_discriminent = half_b * half_b - a * c;
-   if(modified_discriminent >= 0) {
-      auto t = (-half_b - std::sqrt(modified_discriminent)) / a;
-      return t;
-   }
-   return -1;
-}
 
 // gives the color of a ray based on its y coordinate value
 // gradient varies from white for y = 0 to cyan (24, 163, 126)
-color ray_color(const Ray& ray) {
-   auto t = hit_sphere(point3D(0, 0, -1), 0.5, ray);
-   if(t != -1) {
-      auto hit_point = ray.at(t);
-      // Normal vector is the vector perpendicular to the surface of the sphere at the hit point of ray
-      auto normal_unit_vector = unit_vector(Vec3D(hit_point - point3D(0, 0, -1)));
-      return 0.5 * color(0.15 / 0.5, normal_unit_vector.y() + 1, normal_unit_vector.z() + 1);
+color ray_color(const Ray& ray, const Hittable_list& world) {
+   Hit_record rec;
+   if(world.hit(ray, 0, infinity, rec)) {
+      // color based on the normal vector
+      return 0.5 * color(0.15 / 0.5, 0.15 / 0.5, rec.normal.z() + 1);
    }
    
+   // color for background
    auto unit_direction = unit_vector(ray.direction());
-   t = 0.5 * (unit_direction.y() + 1.0);            // since y can be between [-1, 1], scaling it to be btw [0, 1]
+   auto t = 0.5 * (unit_direction.y() + 1.0);            // since y can be between [-1, 1], scaling it to be btw [0, 1]
       
    // linear interpolation : coloval = (1 - y) * initial_value + y * final_value
    return (1 - t) * Color::white + t * Color::cyan;
@@ -44,6 +30,12 @@ int main() {
    const auto aspect_ratio = 16.0 / 9.0;
    const int image_height = 720;
    const int image_width = static_cast<int>(image_height * aspect_ratio);
+
+   // World
+
+   Hittable_list world;
+   world.add(make_shared<Sphere>(point3D(0, 0, -1), 0.5));
+   world.add(make_shared<Sphere>(point3D(0, -100.5, -1), 100));
 
    // Setting up camera position
    const auto origin = Vec3D(0, 0, 0);
@@ -71,7 +63,7 @@ int main() {
 
          auto ray_direction = lower_left_corner + x_offset * horizontal + y_offset * vertical;
          Ray ray(origin, ray_direction);
-         auto pixel_color = ray_color(ray);
+         auto pixel_color = ray_color(ray, world);
          Color::write_color(std::cout, pixel_color);
       }
    }

@@ -62,9 +62,6 @@ int main() {
             auto y_offset = (double) (i + random_double(-1.0, 1.0)) / (image_height - 1);
             auto x_offset = (double) (j + random_double(-1.0, 1.0)) / (image_width - 1);
 
-            y_offset = clamp(y_offset, 0.0, 0.9999);
-            x_offset = clamp(x_offset, 0.0, 0.9999);
-
             auto ray = cam.get_ray(x_offset, y_offset);
             pixel_color += ray_color(ray, world, bounces);
          }

@@ -14,9 +14,9 @@ void Color::write_color(std::ostream& out, const color& pixel_color, const int s
    b *= factor;
 
    // Translate each value to [0, 255]
-   r = static_cast<int>(256 * r);
-   g = static_cast<int>(256 * g);
-   b = static_cast<int>(256 * b);
+   r = static_cast<int>(256 * clamp(r, 0.0, 0.999));
+   g = static_cast<int>(256 * clamp(g, 0.0, 0.999));
+   b = static_cast<int>(256 * clamp(b, 0.0, 0.999));
    
    out << r << ' ' << g << ' ' << b << '\n';
 }

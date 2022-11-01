@@ -32,6 +32,13 @@ inline double random_double() {
    return random_double(0.0, 1.0); 
 }
 
+// clamps a value between [min, max]
+inline double clamp(double val, double min, double max) {
+   if(val < min) return min;
+   if(val > max) return max;
+   return val;
+}
+
 // Headers
 #include "Vec3D.hpp"
 #include "Ray.hpp"

@@ -10,11 +10,17 @@
 
 // gives the color of a ray based on its y coordinate value
 // gradient varies from white for y = 0 to cyan (24, 163, 126)
-color ray_color(const Ray& ray, const Hittable_list& world) {
+color ray_color(const Ray& ray, const Hittable_list& world, int depth) {
+   if(depth < 0) {
+      // No more light gathered
+      return color(0, 0, 0);
+   }
+
    Hit_record rec;
    if(world.hit(ray, 0, infinity, rec)) {
       // color based on the normal vector
-      return 0.5 * (rec.normal + color(1, 1, 1));
+      auto target = rec.point + rec.normal + random_in_unit_sphere();
+      return 0.7 * ray_color(Ray(rec.point, target - rec.point), world, depth - 1);
    }
    
    // color for background
@@ -31,6 +37,7 @@ int main() {
    const int image_height = 480;
    const int image_width = static_cast<int>(image_height * aspect_ratio);
    const int samples_per_pixel = 100;                                            // for getting average value for the color of a pixel based on its surroundings
+   const int bounces = 8;                                                       // for the number of reflections
 
    // World
    Hittable_list world;
@@ -59,7 +66,7 @@ int main() {
             x_offset = clamp(x_offset, 0.0, 0.9999);
 
             auto ray = cam.get_ray(x_offset, y_offset);
-            pixel_color += ray_color(ray, world);
+            pixel_color += ray_color(ray, world, bounces);
          }
 
          Color::write_color(std::cout, pixel_color, samples_per_pixel);

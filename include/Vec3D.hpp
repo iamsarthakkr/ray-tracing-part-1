@@ -1,6 +1,8 @@
 #pragma once
 #define VEC3D_H
 
+#include "Ray_tracing.hpp"
+
 #include <iostream>
 
 class Vec3D {
@@ -21,6 +23,14 @@ public:
 
    double length() const;
    double length_squared() const;
+
+   inline static Vec3D random() {
+      return Vec3D(random_double(), random_double(), random_double());
+   }
+
+   inline static Vec3D random(double min, double max) {
+      return Vec3D(random_double(min, max), random_double(min, max), random_double(min, max));
+   }
 
 private:
    double m_data[3];
@@ -70,6 +80,17 @@ inline Vec3D cross(const Vec3D& a, const Vec3D& b) {
 
 inline Vec3D unit_vector(const Vec3D& v) {
    return v / v.length();
+}
+
+inline Vec3D random_in_unit_sphere() {
+   Vec3D ret;
+   while (true) {
+      auto p = Vec3D::random(-1, 1);
+      if (p.length_squared() >= 1) continue;
+      ret = p;
+      break;
+   }
+   return ret;
 }
 
 using point3D = Vec3D;  // 3D point

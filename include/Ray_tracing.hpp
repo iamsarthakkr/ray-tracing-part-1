@@ -4,6 +4,7 @@
 #include <cmath>
 #include <memory>
 #include <limits>
+#include <random>
 
 // Common usings
 using std::sqrt;
@@ -18,6 +19,19 @@ const double pi = 3.1415926535897932385;
 inline double degrees_to_radians(double degrees) {
    return degrees * pi / 180.0;
 }
+
+// gives a random real number between [min, max)
+inline double random_double(double min, double max) {
+   static std::mt19937_64 rng(696969);
+   static std::uniform_real_distribution<double> distribution(min, max);
+   return distribution(rng);
+}
+
+// gives a random real number between [0, 1)
+inline double random_double() { 
+   return random_double(0.0, 1.0); 
+}
+
 
 // Headers
 #include "Vec3D.hpp"

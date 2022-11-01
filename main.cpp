@@ -28,7 +28,7 @@ color ray_color(const Ray& ray) {
       auto hit_point = ray.at(t);
       // Normal vector is the vector perpendicular to the surface of the sphere at the hit point of ray
       auto normal_unit_vector = unit_vector(Vec3D(hit_point - point3D(0, 0, -1)));
-      return 0.5 * color(normal_unit_vector.x() + 1, normal_unit_vector.y() + 1, normal_unit_vector.z() + 1);
+      return 0.5 * color(0.15 / 0.5, normal_unit_vector.y() + 1, normal_unit_vector.z() + 1);
    }
    
    auto unit_direction = unit_vector(ray.direction());
@@ -42,8 +42,8 @@ int main() {
    // Image dimensions
 
    const auto aspect_ratio = 16.0 / 9.0;
-   const int image_width = 2180;
-   const int image_height = static_cast<int>(image_width / aspect_ratio);
+   const int image_height = 720;
+   const int image_width = static_cast<int>(image_height * aspect_ratio);
 
    // Setting up camera position
    const auto origin = Vec3D(0, 0, 0);

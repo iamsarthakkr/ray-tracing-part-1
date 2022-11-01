@@ -1,3 +1,4 @@
+#include "Ray_tracing.hpp"
 #include "Hittable_list.hpp"
 
 Hittable_list::Hittable_list(shared_ptr<Hittable> object) { add(object); }

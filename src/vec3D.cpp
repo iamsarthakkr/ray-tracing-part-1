@@ -1,7 +1,7 @@
+#include "Ray_tracing.hpp"
+
 #include <cmath>
 #include <iostream>
-
-#include "Vec3D.hpp"
 
 double Vec3D::x() const { return m_data[0]; }
 double Vec3D::y() const { return m_data[1]; }

@@ -1,3 +1,4 @@
+#include "Ray_tracing.hpp"
 #include "Sphere.hpp"
 
 #include <cmath>

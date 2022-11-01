@@ -1,3 +1,5 @@
+#include "Ray_tracing.hpp"
+
 #include "Camera.hpp"
 
 Camera::Camera() {   

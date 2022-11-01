@@ -1,5 +1,7 @@
-#include <iostream>
+#include "Ray_tracing.hpp"
 #include "Color.hpp"
+
+#include <iostream>
 
 void Color::write_color(std::ostream& out, const color& pixel_color, const int samples_per_pixel) {
    auto r = pixel_color.x();

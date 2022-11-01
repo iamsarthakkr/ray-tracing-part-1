@@ -1,4 +1,4 @@
-#include "Vec3D.hpp"
+#include "Ray_tracing.hpp"
 #include "Ray.hpp"
 
 point3D Ray::origin() const { return m_origin; }

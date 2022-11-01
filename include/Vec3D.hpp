@@ -82,6 +82,7 @@ inline Vec3D unit_vector(const Vec3D& v) {
    return v / v.length();
 }
 
+// For lazy diffusion
 inline Vec3D random_in_unit_sphere() {
    Vec3D ret;
    while (true) {
@@ -93,8 +94,19 @@ inline Vec3D random_in_unit_sphere() {
    return ret;
 }
 
+// For true lambertian reflection
 inline Vec3D random_unit_vector() {
    return unit_vector(random_in_unit_sphere());
+}
+
+// For uniform scattering for all angles
+inline Vec3D random_in_hemisphere(const Vec3D& normal) {
+   auto in_unit = random_in_unit_sphere();
+   if(dot(normal, in_unit)) {
+      // in same hemisphere
+      return in_unit;
+   }
+   return -in_unit;
 }
 
 using point3D = Vec3D;  // 3D point

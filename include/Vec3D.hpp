@@ -14,7 +14,7 @@ public:
    double operator[] (int i) const;
    double& operator[] (int i);
 
-   Vec3D operator-();
+   Vec3D operator-() const;
    Vec3D& operator+=(const Vec3D& v);
    Vec3D& operator*=(const double t);
    Vec3D& operator/=(const double t);

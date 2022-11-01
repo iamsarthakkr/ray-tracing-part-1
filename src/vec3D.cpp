@@ -9,7 +9,7 @@ double Vec3D::z() const { return m_data[2]; }
 double Vec3D::operator[] (int i) const { return m_data[i]; }
 double& Vec3D::operator[] (int i) { return m_data[i]; }
 
-Vec3D Vec3D::operator-() { return Vec3D(m_data[0], m_data[1], m_data[2]); }
+Vec3D Vec3D::operator-() const { return Vec3D(m_data[0], m_data[1], m_data[2]); }
 Vec3D& Vec3D::operator+=(const Vec3D& v) {
    m_data[0] += v.m_data[0];
    m_data[1] += v.m_data[1];

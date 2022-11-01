@@ -32,7 +32,6 @@ inline double random_double() {
    return random_double(0.0, 1.0); 
 }
 
-
 // Headers
 #include "Vec3D.hpp"
 #include "Ray.hpp"

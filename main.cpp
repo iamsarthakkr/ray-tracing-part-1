@@ -1,5 +1,6 @@
 #include "Ray_tracing.hpp"
 
+#include "Camera.hpp"
 #include "Color.hpp"
 #include "Hittable_list.hpp"
 #include "Sphere.hpp"
@@ -37,17 +38,8 @@ int main() {
    world.add(make_shared<Sphere>(point3D(0, 0, -1), 0.5));
    world.add(make_shared<Sphere>(point3D(0, -100.5, -1), 100));
 
-   // Setting up camera position
-   const auto origin = Vec3D(0, 0, 0);
-
-   // Setting virtual viewport dimension (to pass our rays through)
-   const auto viewport_height = 2.0;
-   const auto viewport_width = viewport_height * aspect_ratio;
-   const auto focal_length = 1.0;
-
-   const auto horizontal = Vec3D(viewport_width, 0, 0);                                                  // vector for width
-   const auto vertical = Vec3D(0, viewport_height, 0);                                                   // vector for height
-   const auto lower_left_corner = origin - horizontal / 2 - vertical / 2 - Vec3D(0, 0, focal_length);    // vector to the lower left corner of the viewport
+   // Setting up camera
+   Camera cam;
 
    // Render
 
@@ -58,11 +50,11 @@ int main() {
    for(int i = image_height - 1; i >= 0; --i) {
       std::cerr << "\rScanlines remaining: " << i << ' ' << std::flush;
       for(int j = 0; j < image_width; j++) {
+         // offsets relative to the left cornder of the image
          auto y_offset = (double) i / (image_height - 1);
          auto x_offset = (double) j / (image_width - 1);
 
-         auto ray_direction = lower_left_corner + x_offset * horizontal + y_offset * vertical;
-         Ray ray(origin, ray_direction);
+         auto ray = cam.get_ray(x_offset, y_offset);
          auto pixel_color = ray_color(ray, world);
          Color::write_color(std::cout, pixel_color);
       }

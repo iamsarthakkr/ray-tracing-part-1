@@ -49,7 +49,7 @@ int main() {
    // World
    Hittable_list world;
    const shared_ptr<Material> material_ground = make_shared<Diffused_Material>(Color::grass);
-   const shared_ptr<Material> material_middle = make_shared<Diffused_Material>(Color::get_color_scaled(137, 91, 22));
+   const shared_ptr<Material> material_middle = make_shared<Diffused_Material>(Color::get_color_scaled(150, 24, 123));
    const shared_ptr<Material> material_left = make_shared<Metal>(Color::get_color_scaled(160, 200, 200));
    const shared_ptr<Material> material_right = make_shared<Metal>(Color::get_color_scaled(205, 205, 165));
 

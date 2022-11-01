@@ -8,6 +8,18 @@ struct Hit_record {
    point3D point;
    Vec3D normal;
    double t;
+   bool front_face;
+
+   inline void set_face_normal(const Ray& ray, const Vec3D& outward_normal) {
+      if(dot(ray.direction(), outward_normal) < 0) {
+         // ray is inside and thus the normal will point towards the center
+         front_face = false;
+         normal = -outward_normal;
+      } else {
+         front_face = true;
+         normal = outward_normal;
+      }
+   }
 };
 
 class Hittable {

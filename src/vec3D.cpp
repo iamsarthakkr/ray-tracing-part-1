@@ -32,3 +32,8 @@ double Vec3D::length() const {
 double Vec3D::length_squared() const {
    return m_data[0] * m_data[0] + m_data[1] * m_data[1] + m_data[2] * m_data[2];
 }
+
+bool Vec3D::near_zero() const {
+   const auto eps = 1e-8;
+   return (fabs(m_data[0]) < eps) && (fabs(m_data[1]) < eps) && (fabs(m_data[2]) < eps);
+}

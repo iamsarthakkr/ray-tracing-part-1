@@ -23,6 +23,7 @@ public:
 
    double length() const;
    double length_squared() const;
+   bool near_zero() const;
 
    inline static Vec3D random() {
       return Vec3D(random_double(), random_double(), random_double());

@@ -93,5 +93,9 @@ inline Vec3D random_in_unit_sphere() {
    return ret;
 }
 
+inline Vec3D random_unit_vector() {
+   return unit_vector(random_in_unit_sphere());
+}
+
 using point3D = Vec3D;  // 3D point
 using color = Vec3D;    // RGB color

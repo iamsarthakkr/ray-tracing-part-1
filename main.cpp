@@ -6,6 +6,7 @@
 #include "Sphere.hpp"
 #include "Material.hpp"
 #include "Diffused_Material.hpp"
+#include "Metal.hpp"
 
 #include <iostream>
 
@@ -47,11 +48,15 @@ int main() {
 
    // World
    Hittable_list world;
-   const shared_ptr<Material> mat1 = make_shared<Diffused_Material>(color(0.5, 0.5, 0.5));
-   const shared_ptr<Material> mat2 = make_shared<Diffused_Material>(color(1, 1, 1));
+   const shared_ptr<Material> material_ground = make_shared<Diffused_Material>(Color::grass);
+   const shared_ptr<Material> material_middle = make_shared<Diffused_Material>(Color::get_color_scaled(137, 91, 22));
+   const shared_ptr<Material> material_left = make_shared<Metal>(Color::get_color_scaled(160, 200, 200));
+   const shared_ptr<Material> material_right = make_shared<Metal>(Color::get_color_scaled(205, 205, 165));
 
-   world.add(make_shared<Sphere>(point3D(0, 0, -1), 0.5, mat1));
-   world.add(make_shared<Sphere>(point3D(0, -100.5, -1), 100, mat2));
+   world.add(make_shared<Sphere>(point3D(0, -100.5, -1), 100, material_ground));
+   world.add(make_shared<Sphere>(point3D(0, 0, -1), 0.5, material_middle));
+   world.add(make_shared<Sphere>(point3D(-1.0, 0, -1), 0.5, material_left));
+   world.add(make_shared<Sphere>(point3D(1.0, 0, -1), 0.5, material_right));
 
    // Setting up camera
    Camera cam;

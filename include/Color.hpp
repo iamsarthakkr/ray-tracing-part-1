@@ -4,13 +4,18 @@
 #include <iostream>
 #include <Vec3D.hpp>
 
+
+
 namespace Color {
    void write_color(std::ostream& out, const color& pixel_color, const int samples_per_pixel);
-
-   const color white(1.0, 1.0, 1.0);
+   inline color get_color_scaled(const int r, const int g, const int b) {
+      return color(r / 256.0, g / 256.0, b / 256.0);
+   }
+   const color white(get_color_scaled(256, 256, 256));
    const color black(0, 0, 0);
-   const color cyan(24 / 256.0, 163 / 256.0, 126 / 256.0);
-   const color purple(103 / 256.0, 8 / 256.0, 135 / 256.0);
-   const color sky_blue(60 / 256.0, 129 / 256.0, 193 / 256.0);
+   const color cyan(get_color_scaled(24, 163, 126));
+   const color purple(get_color_scaled(103, 8, 135));
+   const color sky_blue(get_color_scaled(60, 129, 193));
+   const color grass(get_color_scaled(15, 117, 14));
    // const color sky_blue(132 / 256.0, 180 / 256.0, 255 / 256.0);
 }

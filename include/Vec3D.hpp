@@ -110,5 +110,10 @@ inline Vec3D random_in_hemisphere(const Vec3D& normal) {
    return -in_unit;
 }
 
+// For perfect reflection
+inline Vec3D reflect(const Vec3D& ray, const Vec3D& normal) {
+   return ray - 2 * dot(ray, normal) * normal;
+}
+
 using point3D = Vec3D;  // 3D point
 using color = Vec3D;    // RGB color

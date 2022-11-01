@@ -20,7 +20,7 @@ color ray_color(const Ray& ray, const Hittable_list& world, int depth) {
    if(world.hit(ray, 0, infinity, rec)) {
       // color based on the normal vector
       auto target = rec.point + rec.normal + random_in_unit_sphere();
-      return 0.7 * ray_color(Ray(rec.point, target - rec.point), world, depth - 1);
+      return 0.5 * ray_color(Ray(rec.point, target - rec.point), world, depth - 1);
    }
    
    // color for background
@@ -28,7 +28,7 @@ color ray_color(const Ray& ray, const Hittable_list& world, int depth) {
    auto t = 0.5 * (unit_direction.y() + 1.0);            // since y can be between [-1, 1], scaling it to be btw [0, 1]
       
    // linear interpolation : coloval = (1 - y) * initial_value + y * final_value
-   return (1 - t) * Color::white + t * Color::cyan;
+   return (1 - t) * Color::white + t * Color::sky_blue;
 }
 
 int main() {
@@ -37,7 +37,7 @@ int main() {
    const int image_height = 480;
    const int image_width = static_cast<int>(image_height * aspect_ratio);
    const int samples_per_pixel = 100;                                            // for getting average value for the color of a pixel based on its surroundings
-   const int bounces = 8;                                                       // for the number of reflections
+   const int bounces = 10;                                                       // for the number of reflections
 
    // World
    Hittable_list world;

@@ -1,8 +1,9 @@
 #pragma once
 #define HITTABLE_H
 
-#include "Ray_Tracing.hpp"
-#include "Material.hpp"
+#include "Ray_tracing.hpp"
+
+class Material;
 
 // Struct to hold the info about the strike point of a ray with a hittable object
 struct Hit_record {

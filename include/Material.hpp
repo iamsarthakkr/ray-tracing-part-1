@@ -2,7 +2,8 @@
 #define MATERIAL_H
 
 #include "Ray_tracing.hpp"
-#include "Hittable.hpp"
+
+struct Hit_record;
 
 class Material {
 public:   

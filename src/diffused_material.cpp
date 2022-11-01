@@ -1,4 +1,5 @@
 #include "Diffused_Material.hpp"
+#include "Hittable.hpp"
 
 bool Diffused_Material::scatter(const Ray& ray_in, const Hit_record& rec, color& attenuation, Ray& scattered) const {
    // color based on the normal vector

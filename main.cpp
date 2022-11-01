@@ -17,7 +17,7 @@ color ray_color(const Ray& ray, const Hittable_list& world, int depth) {
    }
 
    Hit_record rec;
-   if(world.hit(ray, 0, infinity, rec)) {
+   if(world.hit(ray, 0.001, infinity, rec)) {
       // color based on the normal vector
       auto target = rec.point + rec.normal + random_in_unit_sphere();
       return 0.5 * ray_color(Ray(rec.point, target - rec.point), world, depth - 1);

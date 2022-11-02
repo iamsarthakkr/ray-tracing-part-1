@@ -41,17 +41,17 @@ color ray_color(const Ray& ray, const Hittable_list& world, int depth) {
 int main() {
    // Image setup
    const auto aspect_ratio = 16.0 / 9.0;
-   const int image_height = 480;
+   const int image_height = 1080;
    const int image_width = static_cast<int>(image_height * aspect_ratio);
    const int samples_per_pixel = 100;                                            // for getting average value for the color of a pixel based on its surroundings
-   const int bounces = 10;                                                       // for the number of reflections
+   const int bounces = 50;                                                       // for the number of reflections
 
    // World
    Hittable_list world;
    const shared_ptr<Material> material_ground = make_shared<Diffused_Material>(Color::grass);
    const shared_ptr<Material> material_middle = make_shared<Diffused_Material>(Color::get_color_scaled(150, 24, 123));
-   const shared_ptr<Material> material_left = make_shared<Metal>(Color::get_color_scaled(160, 200, 200));
-   const shared_ptr<Material> material_right = make_shared<Metal>(Color::get_color_scaled(205, 205, 165));
+   const shared_ptr<Material> material_left = make_shared<Metal>(Color::get_color_scaled(160, 200, 200), 0.3);
+   const shared_ptr<Material> material_right = make_shared<Metal>(Color::get_color_scaled(205, 205, 165), 1.0);
 
    world.add(make_shared<Sphere>(point3D(0, -100.5, -1), 100, material_ground));
    world.add(make_shared<Sphere>(point3D(0, 0, -1), 0.5, material_middle));

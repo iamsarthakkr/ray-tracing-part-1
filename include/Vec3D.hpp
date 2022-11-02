@@ -115,5 +115,18 @@ inline Vec3D reflect(const Vec3D& ray, const Vec3D& normal) {
    return ray - 2 * dot(ray, normal) * normal;
 }
 
+// For refraction
+inline Vec3D refract(const Vec3D& ray_in, const Vec3D& normal, const double refractive_index_relative) {
+   // refracted ray perpendicular to normal: mu * (R + (-R . N)N)
+   // refracted ray parallet to normal: -sqrt(1 - |R_parallel}^2) N
+   auto cos_theta = fmin(dot(-ray_in, normal), 1.0);
+   auto r_parallel = refractive_index_relative * (ray_in + cos_theta * normal);
+   // std::cerr << "cos_thetha " << cos_theta << ' ' << r_parallel.length_squared() << '\n';
+   auto r_perpendicular = -sqrt(fabs(1 - r_parallel.length_squared())) * normal;
+   // std::cerr << r_perpendicular << '\n';
+
+   return r_parallel + r_perpendicular; 
+}
+
 using point3D = Vec3D;  // 3D point
 using color = Vec3D;    // RGB color

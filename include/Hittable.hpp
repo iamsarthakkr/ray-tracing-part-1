@@ -14,7 +14,7 @@ struct Hit_record {
    shared_ptr<Material> material_ptr;
 
    inline void set_face_normal(const Ray& ray, const Vec3D& outward_normal) {
-      if(dot(ray.direction(), outward_normal) < 0) {
+      if(dot(ray.direction(), outward_normal) > 0) {
          // ray is inside and thus the normal will point towards the center
          front_face = false;
          normal = -outward_normal;

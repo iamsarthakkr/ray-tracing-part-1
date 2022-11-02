@@ -7,6 +7,7 @@
 #include "Material.hpp"
 #include "Diffused_Material.hpp"
 #include "Metal.hpp"
+#include "Dielectric.hpp"
 
 #include <iostream>
 
@@ -44,19 +45,21 @@ int main() {
    const int image_height = 1080;
    const int image_width = static_cast<int>(image_height * aspect_ratio);
    const int samples_per_pixel = 100;                                            // for getting average value for the color of a pixel based on its surroundings
-   const int bounces = 50;                                                       // for the number of reflections
+   const int bounces = 8;                                                       // for the number of reflections
 
    // World
    Hittable_list world;
    const shared_ptr<Material> material_ground = make_shared<Diffused_Material>(Color::grass);
-   const shared_ptr<Material> material_middle = make_shared<Diffused_Material>(Color::get_color_scaled(150, 24, 123));
-   const shared_ptr<Material> material_left = make_shared<Metal>(Color::get_color_scaled(160, 200, 200), 0.3);
-   const shared_ptr<Material> material_right = make_shared<Metal>(Color::get_color_scaled(205, 205, 165), 1.0);
+   // auto material_ground = make_shared<Dielectric>(color(0.8, 0.8, 0.0));
+   auto material_middle = make_shared<Diffused_Material>(color(0.1, 0.2, 0.5));
+   auto material_left   = make_shared<Dielectric>(1.5);
+   auto material_right  = make_shared<Metal>(color(0.8, 0.6, 0.2), 0.0);
+
 
    world.add(make_shared<Sphere>(point3D(0, -100.5, -1), 100, material_ground));
-   world.add(make_shared<Sphere>(point3D(0, 0, -1), 0.5, material_middle));
-   world.add(make_shared<Sphere>(point3D(-1.0, 0, -1), 0.5, material_left));
-   world.add(make_shared<Sphere>(point3D(1.0, 0, -1), 0.5, material_right));
+   world.add(make_shared<Sphere>(point3D(1, 0, -1), 0.5, material_middle));
+   world.add(make_shared<Sphere>(point3D(-0.8, -0.2, -1), 0.3, material_left));
+   // world.add(make_shared<Sphere>(point3D(1.0, 0, -1), 0.5, material_right));
 
    // Setting up camera
    Camera cam;
